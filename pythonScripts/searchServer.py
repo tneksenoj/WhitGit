@@ -25,6 +25,8 @@ def searchForSubGroup(keyword,parentGroup):
     return None
 
 
+# THE PROJECTS CANNOT HAVE THE SAME NAME IF THEY HAVE THE SAME PARENT GROUP
+# BUT THEY CAN IF THEY ARE IN DIFFERENT GROUPS
 # check for project name
 def searchForProject(keyword, parentGroup):
     projects = parentGroup.projects.list(search = keyword)
