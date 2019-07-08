@@ -1,7 +1,8 @@
-import connection
+def function1(object1 = None):
+    if(object1 == None):
+        print("Default")
+    else:
+        print("Not Default")
 
-lab = connection.connect()
-
-user = lab.users.create({'email': 'poudelnovel@gmail.com', 'name': 'Novel','username': 'npoudel','password': 'npoudel21','skip_confirmation': 'True'})
-if(user!=None):
-    print("A new user is created username: npoudel and password: npoudel21")
+function1()
+function1(2)

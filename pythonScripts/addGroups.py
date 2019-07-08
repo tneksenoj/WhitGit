@@ -26,10 +26,11 @@ import searchServer
 
 def addGroup(keyword,lab):
     group = searchServer.searchForGroup(keyword,lab)
-    if(group==None):
+    try:
+        group==None
         group = lab.groups.create({'name':keyword, 'path':keyword})
         print("A new group with the name: ",keyword,"has been created.")
-    else:
+    except:
         print("This group already exists.")
     return group
 
@@ -50,10 +51,11 @@ def addGroup(keyword,lab):
 
 
 def addSubGroup(keyword, lab, parentGroup):
-    subGroup = searchServer.searchForSubGroup(keyword,parentGroup)
-    if(subGroup==None):
+    subGroup = searchServer.searchForGroup(keyword,lab,parentGroup)
+    try:
+        subGroup==None
         subGroup = lab.groups.create({'name':keyword,'path':keyword,'parent_id':parentGroup.get_id()})
         print("A new group with the name ",keyword,"has beem created")
-    else:
+    except:
         print("This group already exists.")
     return subGroup

@@ -11,4 +11,3 @@ def changePermission(username,lab,project,index):        #index is the order of 
     member.access_level = searchServer.accessArray[index]
     member.save()           #the documentation online 
     return
-
