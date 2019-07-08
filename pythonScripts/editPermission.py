@@ -5,9 +5,14 @@
 
 import searchServer
 
-def changePermission(username,lab,project,index):        #index is the order of the access level for a user
+def changeProjectPermission(username,lab,project,index):        #index is the order of the access level for a user
     user = searchServer.searchForUser(username,lab)
     member = project.members.get(user.id)
     member.access_level = searchServer.accessArray[index]
     member.save()           #the documentation online 
     return
+
+
+def changeGroupPermission(username,lab,group,index):
+    user = searchServer.searchForUser(username,lab)
+    member = group.members.get(user.id)

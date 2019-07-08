@@ -21,6 +21,7 @@ def addStudentsFromCSV(lab, semGroup):
                 print("We created a new group with name: ",classCode)
             except:
                 pass
+
             # 4th index is the username, so we take that
             studentGroup = searchServer.searchForGroup(line[4], lab, classGroup)
             try:
@@ -29,6 +30,7 @@ def addStudentsFromCSV(lab, semGroup):
                 print("We created a new group with name: ",line[4])
             except:
                 pass
+                
             # after the student-specific groups are made, lets check if the student we just looked at is a user
             studentUser = searchServer.searchForUser(line[4],lab)
             try:

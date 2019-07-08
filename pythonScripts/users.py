@@ -14,10 +14,11 @@ import searchServer
 # One function can be used for all the directories
 def addUserToDir(username, lab, dir, index):            #index is the required item of the access array in searchServer.py
     user = searchServer.searchForUser(username, lab)
-    if(user!=None):
+    try:
+        user!=None
         member = dir.members.create({'user_id':user.id,'access_level':searchServer.accessArray[index]})
         print(username, "is now a member for ", dir.name,".")
         return member       #returning member in case we need the member variable
-    else:
+    except:
         print("No user with the username exists.")
         return None

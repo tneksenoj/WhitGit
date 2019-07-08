@@ -23,8 +23,8 @@ print("\nPROGRAM START\n")
 # connect to the server
 lab = connection.connect()  # this returns the GitLab object made for connection
 
-dir = navigate.traverse("2020/Fall",lab)
-students.addStudentsFromCSV(lab,dir)
+dir = navigate.traverse("2020/Fall/CS273-01",lab)
+# students.addStudentsFromCSV(lab,dir)
 
 
 print("\nEND OF PROGRAM\n")
