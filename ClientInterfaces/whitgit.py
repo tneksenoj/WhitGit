@@ -1,101 +1,114 @@
+
+############################################################################################################# 
+# Purpose: Create a simple dialog for students to push projects to the WhitGit repository
+#
+# Authors: 
+#   Kent Jones
+#   Abdul Haq
+#   Pragalva Dhungana
+#   Novel Poudel
+#   Sparsh Rawlwani
+#
+# Date:
+#   Summer 2019
+##############################################################################################################
+#
+# Simple enough, just import everything from tkinter.
+#
+# Resources used in creating this program: 
+#
+# Concatenating the string in pythong :https://www.pythonforbeginners.com/concatenation/string-concatenation-and-formatting-in-python
+# Change current working directory in python: https://stackoverflow.com/questions/20796355/change-current-working-directory-in-python
+# Executing shell commands in python: https://unix.stackexchange.com/questions/238180/execute-shell-commands-in-python
+# Getting tkinter to work with visual studio code: https://stackoverflow.com/questions/25905540/importerror-no-module-named-tkinter
+# using python in visual studio code and selecting the version: https://blog.usejournal.com/python-with-visual-studio-code-on-macos-60e1fad9e932
+# choosing a gui for python: https://blog.resellerclub.com/the-6-best-python-gui-frameworks-for-developers/
+# use a button in a tkinter dialog: https://stackoverflow.com/questions/16373887/how-to-set-the-text-value-content-of-an-entry-widget-using-a-button-in-tkinter
+# use a button in tkinter dialog: https://www.tutorialspoint.com/python/tk_button.htm
+# get rid of a tkinter root dialog window: https://stackoverflow.com/questions/1406145/how-do-i-get-rid-of-python-tkinter-root-window
+# tkinter intro: https://pythonprogramming.net/python-3-tkinter-basics-tutorial/
+# tkinter menu bar: https://pythonprogramming.net/tkinter-menu-bar-tutorial/?completed=/tkinter-tutorial-python-3-event-handling/
+# tkinter dialog module used in python 3: https://stackoverflow.com/questions/673174/which-tkinter-modules-were-renamed-in-python-3
+# tkinter simple dialog with multiple text fields: http://www.java2s.com/Code/Python/GUI-Tk/Asimpledialogwithtwolabelsandtwotextfields.htm
+# tkinter another file dialog example: https://stackoverflow.com/questions/11295917/how-to-select-a-directory-and-store-the-location-using-tkinter-in-python
+# tkinter dialog for a file chooser: https://interactivepython.org/runestone/static/CS152f17/GUIandEventDrivenProgramming/02_standard_dialog_boxes.html
+# tkinter use a callback to a class method: https://stackoverflow.com/questions/23262238/tkinter-callback-in-a-class
+# tkinter helped us understand how to override OK callback for simpledialog: https://stackoverflow.com/questions/33659401/python-tkinter-simpledialog-how-to-bind-a-key-to-the-ok-button-in-simpledialog
+# os.chdir: https://stackoverflow.com/questions/1810743/how-to-set-the-current-working-directory/1810760
+#
+# 
 from tkinter import *
+from tkinter import filedialog
+import tkinter.simpledialog
 from subprocess import call
 import os
-from tkinter import filedialog
 
-import tkinter.SimpleDialog
 
-class MyDialog(tkinter.SimpleDialog.Dialog):
+
+
+# This class manages the dialob box that users will use to submit
+# simple projects to the WhitGit repository\
+class MyDialog(tkinter.simpledialog.Dialog):
 
     def body(self, master):
 
-        Label(master, text="First:").grid(row=0)
-        Label(master, text="Second:").grid(row=1)
 
-        self.e1 = Entry(master)
-        self.e2 = Entry(master)
-
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-        return self.e1 # initial focus
-
-    def apply(self):
-        first = int(self.e1.get())
-        second = int(self.e2.get())
-        print (first, second) # or something
-
-# Here, we are creating our class, Window, and inheriting from the Frame
-# class. Frame is a class from the tkinter module. (see Lib/tkinter/__init__)
-class Window(Frame):
-
-    # Define settings upon initialization. Here you can specify
-    def __init__(self, master=None):
-        
-        # parameters that you want to send through the Frame class. 
-        Frame.__init__(self, master)   
-
-        #reference to the master widget, which is the tk window                 
-        self.master = master
-
-        #with that, we want to then run init_window, which doesn't yet exist
-        self.init_window()
-
-    #Creation of init_window
-    def init_window(self):
-
-        # changing the title of our master widget      
-        self.master.title("GUI")
-
-        # allowing the widget to take the full space of the root window
-        self.pack(fill=BOTH, expand=1)
-
-        # creating a menu instance
-        menu = Menu(self.master)
-        self.master.config(menu=menu)
-
-        # create the file object)
-        file = Menu(menu)
-
-        # adds a command to the menu option, calling it exit, and the
-        # command it runs on event is client_exit
-        file.add_command(label="Exit", command=self.client_exit)
-
-        #added "file" to our menu
-        menu.add_cascade(label="File", menu=file)
-
-        # create the file object)
-        edit = Menu(menu)
-
-        # adds a command to the menu option, calling it exit, and the
-        # command it runs on event is client_exit
-        edit.add_command(label="Undo")
-        edit.add_command(label="Upload Project to WhitGit", command=self.upload_to_whitgit)
-        edit.add_command(label="Download Project from WhitGit")
-
-        #added "file" to our menu
-        menu.add_cascade(label="Edit", menu=edit)
-
-    def upload_to_whitgit(Self):
-        root.foldername =  filedialog.askdirectory()
-        os.setwd(root.foldername)
-        print (root.foldername)
-        call(['git', 'init'])
-        call(['git','http.sslVerify','false'])
-        call(['git','add','.'])
+        Label(master, text="Whitworth Username:").grid(row=0, sticky=E)
+        Label(master, text="WhitGit Password:").grid(row=1, sticky=E)
+        Label(master, text="Project Folder to Push to WhitGit:").grid(row=2, sticky=E)
+        Label(master, text="Commit Message for Project:").grid(row=3, sticky=E)
         
     
-    def client_exit(self):
-        exit()
 
+        self.e0 = Entry(master)
+        self.e1 = Entry(master, show="*")
+        self.e2 = Entry(master)
+        self.e3 = Entry(master)
+        self.b1 = Button(master, text="Select Project Folder", command = self.select_file )
+
+       
         
+        self.e0.grid(row=0, column=1)
+        self.e1.grid(row=1, column=1)
+        self.e2.grid(row=2, column=1)
+        self.b1.grid(row=2, column=2)
+        self.e3.grid(row=3, column=1)
+
+        self.ok =  self.upload_to_whitgit
+
+    
+        return self.e1 # initial focus
+    
+    def select_file(self) :
+        proj_dir  = filedialog.askdirectory()
+        self.e2.delete(0,END)
+        self.e2.insert(0,proj_dir)
+
+    
+
+    def upload_to_whitgit(self):
+        self.username= self.e0.get()
+        self.password=self.e1.get()
+        self.foldername =  self.e2.get()
+        self.projectname = self.foldername.rsplit('/',1)[1]
+        self.description = self.e3.get()
+        os.chdir(self.foldername)
+        call(['git','init'])
+        call(['git','config','http.sslVerify','false'])
+        call(['git','add','.'])
+        call(['git','commit','-m', self.description])
+        call(['git','push','--set-upstream', 'https://'+ self.username +':'+ self.password +'@10.200.100.61/' + self.username + '/' + self.projectname + '.git' , 'master'])
+        
+
+
 # root window created. Here, that would be the only window, but
 # you can later have windows within windows.
 root = Tk()
 
-root.geometry("400x300")
+#root.mainloop()
 
-#creation of an instance
-app = Window(root)
-
-#mainloop 
-root.mainloop()  
+root.withdraw()
+root.title("WhitGit GUI") 
+d = MyDialog(root)
+d.geometry('700x800+300+300') 
+print ( d.result )
